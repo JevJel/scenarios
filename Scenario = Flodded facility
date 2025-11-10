@@ -16,21 +16,15 @@
             "observations": "A compact set of lockpicks for bypassing mechanical locks."
         },
         {
-            "type": "laptop",
-            "name": "CyberChef Laptop",
+            "type": "workstation",
+            "name": "Cryptographic Station",
             "takeable": true,
             "observations": "A secure laptop with CyberChef installed for decoding encrypted data."
-        },
-        {
-            "type": "notepad",
-            "name": "Digital Notepad",
-            "takeable": true,
-            "observations": "Automatically records every clue and password you discover."
         }
     ],
     "rooms": {
-        "lobby": {
-            "type": "room_lobby",
+        "reception": {
+            "type": "room_reception",
             "connections": {
                 "north": "office_a"
             },
