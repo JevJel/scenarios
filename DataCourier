@@ -1,0 +1,169 @@
+{
+    "scenario_brief": "A bag inside the office room that is locked behind the server contains a PIN code for a mysterious USB flash drive. You must retrieve the code to verify what's stored on the USB. So far, no one has been able to get past the server room.",
+    "endGoal": "Retrieve and verify the encrypted USB drive stored inside the locked bag.",
+    "startRoom": "reception",
+    "startItemsInInventory": [
+        {
+            "type": "lockpick",
+            "name": "Lock Pick Kit",
+            "takeable": true,
+            "observations": "A professional lock picking kit with various picks and tension wrenches"
+        },
+        {
+            "type": "fingerprint_kit",
+            "name": "Fingerprint Kit",
+            "takeable": true,
+            "observations": "A tool for lifting fingerprints from surfaces"
+        },
+        {
+            "type": "laptop",
+            "name": "Laptop with CyberChef",
+            "takeable": true,
+            "observations": "Use this to decode binary sequences and other encodings"
+        },
+        {
+            "type": "notes",
+            "name": "Notepad",
+            "takeable": true,
+            "observations": "Store all clues and PINs you discover here"
+        }
+    ],
+    "rooms": {
+        "reception": {
+            "type": "room_reception",
+            "connections": {
+                "north": "office1"
+            },
+            "objects": [
+                {
+                    "type": "notes",
+                    "name": "Reception Log",
+                    "takeable": true,
+                    "readable": true,
+                    "text": "After the last network outage, the office PIN is now required. Some employees reported seeing a binary code on a sticky note near the server.",
+                    "observations": "Log explaining the office PIN requirement"
+                },
+                {
+                    "type": "pc",
+                    "name": "Reception PC",
+                    "takeable": false,
+                    "hasFingerprint": true,
+                    "fingerprintOwner": "receptionist",
+                    "fingerprintDifficulty": "easy",
+                    "observations": "A workstation that may contain binary hints or logs"
+                }
+            ]
+        },
+        "office1": {
+            "type": "room_office",
+            "connections": {
+                "north": "office2",
+                "south": "reception"
+            },
+            "locked": true,
+            "lockType": "pin",
+            "requires": "3695",
+            "difficulty": "medium",
+            "objects": [
+                {
+                    "type": "bag",
+                    "name": "Courier Bag",
+                    "takeable": false,
+                    "locked": true,
+                    "lockType": "key",
+                    "requires": "bag_key",
+                    "observations": "A locked courier bag containing the USB drive",
+                    "contents": [
+                        {
+                            "type": "usb",
+                            "name": "Encrypted USB Drive",
+                            "takeable": true,
+                            "observations": "The mysterious USB drive. Use your laptop to decode it.",
+                            "important": true,
+                            "isEndGoal": true
+                        }
+                    ]
+                },
+                {
+                    "type": "notes",
+                    "name": "Binary PIN Note",
+                    "takeable": true,
+                    "readable": true,
+                    "text": "The office PIN is written in binary: 0011 0110 1001 0101",
+                    "observations": "A note explaining the binary sequence"
+                },
+                {
+                    "type": "key",
+                    "name": "Bag Key",
+                    "takeable": true,
+                    "key_id": "bag_key",
+                    "observations": "A small key for the courier bag"
+                },
+                {
+                    "type": "pc",
+                    "name": "Employee PC",
+                    "takeable": false,
+                    "hasFingerprint": true,
+                    "fingerprintOwner": "employee1",
+                    "fingerprintDifficulty": "medium",
+                    "observations": "May contain additional clues or hints about the office PIN"
+                }
+            ]
+        },
+        "office2": {
+            "type": "room_office",
+            "connections": {
+                "north": "office3",
+                "south": "office1"
+            },
+            "objects": [
+                {
+                    "type": "pc",
+                    "name": "Workstation",
+                    "takeable": false,
+                    "locked": true,
+                    "lockType": "password",
+                    "requires": "emp2025",
+                    "showKeyboard": true,
+                    "maxAttempts": 3,
+                    "postitNote": "Password: emp2025",
+                    "showPostit": true,
+                    "observations": "May hold hints about the office PIN or USB location"
+                },
+                {
+                    "type": "notes",
+                    "name": "Office Memo",
+                    "takeable": true,
+                    "readable": true,
+                    "text": "Keep the USB secure. Only authorized personnel should handle it.",
+                    "observations": "A memo about USB security"
+                }
+            ]
+        },
+        "office3": {
+            "type": "room_office",
+            "connections": {
+                "south": "office2"
+            },
+            "objects": [
+                {
+                    "type": "pc",
+                    "name": "Workstation",
+                    "takeable": false,
+                    "hasFingerprint": true,
+                    "fingerprintOwner": "employee2",
+                    "fingerprintDifficulty": "medium",
+                    "observations": "Contains final hints or clues for unlocking the bag in office1"
+                },
+                {
+                    "type": "notes",
+                    "name": "Final Hint",
+                    "takeable": true,
+                    "readable": true,
+                    "text": "Once you have the key and decoded the PIN, the courier bag in office1 can be opened to retrieve the USB drive.",
+                    "observations": "Directs you toward the end goal"
+                }
+            ]
+        }
+    }
+}
