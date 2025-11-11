@@ -1,7 +1,7 @@
 {
     "scenario_brief": "A massive storm has caused network failure across the facility. Power restoration requires access to the central server room, but it’s locked behind multiple layers of security. You must investigate the offices, collect clues, and find the director’s fingerprint to restore the system before the servers overheat.",
-    "endGoal": "Gain entry to the flooded server room, retrieve the access logs, and restart the power systems before permanent data loss occurs.",
-    "startRoom": "lobby",
+    "endGoal": "Gain entry to the flooded server room, retrieve the access logs, and restart the power systems.",
+    "startRoom": "reception",
     "startItemsInInventory": [
         {
             "type": "fingerprint_kit",
@@ -11,22 +11,22 @@
         },
         {
             "type": "lockpick",
-            "name": "Lockpick Set",
+            "name": "Lock Pick Kit",
             "takeable": true,
-            "observations": "A compact set of lockpicks for bypassing mechanical locks."
+            "observations": "A professional lock picking kit with various picks and tension wrenches."
         },
         {
             "type": "workstation",
             "name": "Cryptographic Station",
             "takeable": true,
-            "observations": "A secure laptop with CyberChef installed for decoding encrypted data."
+            "observations": "Use this to decode Base64 access codes and other encrypted data."
         }
     ],
     "rooms": {
         "reception": {
             "type": "room_reception",
             "connections": {
-                "north": "office_a"
+                "north": "office1"
             },
             "objects": [
                 {
@@ -34,83 +34,74 @@
                     "name": "Storm Damage Report",
                     "takeable": true,
                     "readable": true,
-                    "text": "Severe electrical damage detected in lower server levels. All doors have switched to biometric lockdown. Director access is required for reboot procedure.",
+                    "text": "Severe electrical damage detected in lower server levels. Director access is required for reboot procedure.",
                     "observations": "A printed report detailing the extent of the storm damage."
                 },
                 {
                     "type": "pc",
-                    "name": "Lobby Workstation",
+                    "name": "Lobby Computer",
                     "takeable": false,
                     "hasFingerprint": true,
                     "fingerprintOwner": "assistant",
                     "fingerprintDifficulty": "easy",
-                    "observations": "The workstation displays a warning: 'Server connection lost — awaiting admin override.'"
+                    "observations": "Displays a warning: 'Server connection lost — awaiting admin override.'"
                 },
                 {
                     "type": "notes",
-                    "name": "Maintenance Note",
+                    "name": "Reception Memo",
                     "takeable": true,
                     "readable": true,
-                    "text": "Server room power reset requires both admin fingerprint and a backup override code stored in the IT Manager's computer.",
-                    "observations": "A maintenance reminder taped near the workstation."
+                    "text": "All staff instructed to report damages and refrain from touching server room doors.",
+                    "observations": "A memo reminding staff of security protocols."
                 }
             ]
         },
-        "office_a": {
+        "office1": {
             "type": "room_office",
             "connections": {
-                "north": "office_b",
-                "south": "lobby"
+                "north": "office2",
+                "south": "reception"
             },
             "objects": [
                 {
                     "type": "pc",
-                    "name": "Employee Work Computer",
+                    "name": "IT Manager Computer",
                     "takeable": false,
                     "hasFingerprint": true,
                     "fingerprintOwner": "it_manager",
                     "fingerprintDifficulty": "medium",
-                    "observations": "The computer is still on, showing a partially decrypted message on screen."
+                    "observations": "Shows a network diagnostic tool open."
                 },
                 {
                     "type": "notes",
                     "name": "Encrypted Email",
                     "takeable": true,
                     "readable": true,
-                    "text": "To: Director Evans\nSubject: Backup Access Code\n\nENCODED: QkFTRTY0X0NPREU6IDc5MjU=\n\nOnly use if main fingerprint fails.",
-                    "observations": "An encrypted email message containing the backup access code."
-                },
-                {
-                    "type": "pc",
-                    "name": "IT Manager Laptop",
-                    "takeable": false,
-                    "hasFingerprint": true,
-                    "fingerprintOwner": "it_manager",
-                    "fingerprintDifficulty": "medium",
-                    "observations": "Laptop shows a network diagnostic tool open. Some fields are redacted."
+                    "text": "ENCODED: Nzk yNQ==",
+                    "observations": "Encrypted email containing backup access code."
                 },
                 {
                     "type": "notes",
-                    "name": "Internal Memo",
+                    "name": "Office Memo",
                     "takeable": true,
                     "readable": true,
-                    "text": "Reminder: The Director’s fingerprint scanner was recently recalibrated. If he’s out of office, his biometric data can be lifted from his old coffee mug in the conference room.",
-                    "observations": "An internal memo with a crucial hint for collecting the Director’s fingerprint."
+                    "text": "Check all network logs before proceeding to the server room.",
+                    "observations": "Internal office instructions."
                 }
             ]
         },
-        "office_b": {
-            "type": "room_conference",
+        "office2": {
+            "type": "room_office",
             "connections": {
-                "north": "server_room",
-                "south": "office_a"
+                "north": "office3",
+                "south": "office1"
             },
             "objects": [
                 {
                     "type": "table",
                     "name": "Conference Table",
                     "takeable": false,
-                    "observations": "A large table surrounded by chairs. One coffee mug stands out with a clear fingerprint mark."
+                    "observations": "A large table surrounded by chairs. One coffee mug stands out."
                 },
                 {
                     "type": "mug",
@@ -119,22 +110,65 @@
                     "hasFingerprint": true,
                     "fingerprintOwner": "director",
                     "fingerprintDifficulty": "easy",
-                    "observations": "A coffee mug labeled 'Director Evans' — perfect for collecting a fingerprint sample."
+                    "observations": "Coffee mug labeled 'Director Evans' — perfect for collecting a fingerprint."
                 },
                 {
                     "type": "notes",
-                    "name": "Meeting Log",
+                    "name": "Meeting Notes",
                     "takeable": true,
                     "readable": true,
                     "text": "Last meeting summary:\n- Discussed storm readiness\n- Server flood risk noted\n- Backup fingerprint scanner installed at server door",
-                    "observations": "A meeting log detailing security measures prior to the storm."
+                    "observations": "Meeting notes with crucial security info."
+                }
+            ]
+        },
+        "office3": {
+            "type": "room_office",
+            "connections": {
+                "north": "server_room",
+                "south": "office2"
+            },
+            "objects": [
+                {
+                    "type": "pc",
+                    "name": "Backup Terminal",
+                    "takeable": false,
+                    "hasFingerprint": true,
+                    "fingerprintOwner": "it_manager",
+                    "fingerprintDifficulty": "medium",
+                    "observations": "Terminal showing server room door lock status."
+                },
+                {
+                    "type": "notes",
+                    "name": "Key Card Instructions",
+                    "takeable": true,
+                    "readable": true,
+                    "text": "Server room requires Director's fingerprint. Keep backup code ready.",
+                    "observations": "Instructions for accessing the server room."
+                },
+                {
+                    "type": "bag",
+                    "name": "Locked Office Bag",
+                    "takeable": false,
+                    "locked": true,
+                    "lockType": "key",
+                    "requires": "office_bag_key",
+                    "observations": "A bag containing the USB drive with the access PIN code."
+                },
+                {
+                    "type": "key",
+                    "name": "Office Bag Key",
+                    "takeable": true,
+                    "key_id": "office_bag_key",
+                    "keyPins": [25, 50, 75, 100],
+                    "observations": "A small key for the locked office bag."
                 }
             ]
         },
         "server_room": {
-            "type": "room_server",
+            "type": "room_servers",
             "connections": {
-                "south": "office_b"
+                "south": "office3"
             },
             "locked": true,
             "lockType": "biometric",
@@ -143,22 +177,28 @@
             "objects": [
                 {
                     "type": "pc",
-                    "name": "Server Access Terminal",
+                    "name": "Server Terminal",
                     "takeable": false,
                     "hasFingerprint": true,
                     "fingerprintOwner": "director",
                     "fingerprintDifficulty": "hard",
-                    "observations": "The main terminal for server power restoration. Displays message: 'Awaiting admin biometric and access code.'"
+                    "observations": "Main terminal for server power restoration. Displays: 'Awaiting admin biometric and access code.'"
                 },
                 {
                     "type": "notes",
                     "name": "Restoration Protocol",
                     "takeable": true,
                     "readable": true,
-                    "text": "Server Recovery Steps:\n1. Authenticate with Director's fingerprint.\n2. Enter decoded access code.\n3. Confirm power reroute sequence.\n\nDecoded Backup Code (from CyberChef Base64): 7925",
-                    "observations": "Instructions for restoring network and power systems. This completes your mission.",
+                    "text": "Server Recovery Steps:\n1. Authenticate with Director's fingerprint.\n2. Enter decoded access code: 7925.\n3. Confirm power reroute sequence.",
+                    "observations": "Instructions for restoring network and power systems.",
                     "important": true,
                     "isEndGoal": true
+                },
+                {
+                    "type": "usb",
+                    "name": "Mysterious USB Drive",
+                    "takeable": true,
+                    "observations": "Contains critical data. PIN code required to access. The PIN is inside the office bag in office3."
                 }
             ]
         }
