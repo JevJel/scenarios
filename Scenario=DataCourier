@@ -56,7 +56,7 @@
         "office1": {
             "type": "room_office",
             "connections": {
-                "north": "office2",
+                "north": ["office2", "office3"],
                 "south": "reception"
             },
             "locked": true,
@@ -65,54 +65,23 @@
             "difficulty": "medium",
             "objects": [
                 {
-                    "type": "bag",
-                    "name": "Courier Bag",
+                    "type": "pc",
+                    "name": "Employee PC"
                     "takeable": false,
-                    "locked": true,
-                    "lockType": "key",
-                    "requires": "courier_key",
-                    "observations": "A locked courier bag containing the USB drive",
-                    "contents": [
-                        {
-                            "type": "usb",
-                            "name": "Encrypted USB Drive",
-                            "takeable": true,
-                            "observations": "The mysterious USB drive. Use your laptop to decode it.",
-                            "important": true,
-                            "isEndGoal": true
-                        }
-                    ]
+                    "observations": "There is quiet a lot of computers in here."
                 },
                 {
                     "type": "notes",
-                    "name": "Binary PIN Note",
+                    "name": "Server Access Memo",
                     "takeable": true,
                     "readable": true,
-                    "text": "The office PIN is written in binary: 0011 0110 1001 0101",
-                    "observations": "A note explaining the binary sequence"
-                },
-                {
-                    "type": "key",
-                    "name": "Bag Key",
-                    "takeable": true,
-                    "key_id": "bag_key",
-                    "observations": "A small key for the courier bag"
-                },
-                {
-                    "type": "pc",
-                    "name": "Employee PC",
-                    "takeable": false,
-                    "hasFingerprint": true,
-                    "fingerprintOwner": "employee1",
-                    "fingerprintDifficulty": "medium",
-                    "observations": "May contain additional clues or hints about the office PIN"
-                }
+                    "text": Server room requiers an authentication from one of our techs."
+                    "observations": "This did not narrow my search area"
             ]
         },
         "office2": {
             "type": "room_office",
             "connections": {
-                "north": "office3",
                 "south": "office1"
             },
             "objects": [
@@ -120,14 +89,7 @@
                     "type": "pc",
                     "name": "Workstation",
                     "takeable": false,
-                    "locked": true,
-                    "lockType": "password",
-                    "requires": "emp2025",
-                    "showKeyboard": true,
-                    "maxAttempts": 3,
-                    "postitNote": "Password: emp2025",
-                    "showPostit": true,
-                    "observations": "May hold hints about the office PIN or USB location"
+                    "observations": "This won't get me anywhere"
                 },
                 {
                     "type": "notes",
@@ -135,15 +97,19 @@
                     "takeable": true,
                     "readable": true,
                     "text": "Keep the USB secure. Only authorized personnel should handle it.",
-                    "observations": "A memo about USB security"
+                    "observations": "A memo about USB's location"
                 }
             ]
         },
         "office3": {
             "type": "room_office",
             "connections": {
-                "south": "office2"
+                "north": "server1",
+                "south": "office1"
             },
+            "locked": true,
+            "lockType": "key",
+            "requires": "server_key"
             "objects": [
                 {
                     "type": "pc",
@@ -152,7 +118,7 @@
                     "hasFingerprint": true,
                     "fingerprintOwner": "employee2",
                     "fingerprintDifficulty": "medium",
-                    "observations": "Contains final hints or clues for unlocking the bag in office1"
+                    "observations": "It has fingerprints of the tech guy"
                 },
                 {
                     "type": "notes",
@@ -163,6 +129,100 @@
                     "observations": "Directs you toward the end goal"
                 }
             ]
+        },
+        "server_room": {
+          "type": "room_servers",
+          "connections": {
+            "north": "ceo_office",
+            "south": "office3"
+          },
+          "locked": true,
+          "lockType": "key",
+          "requires": "server_key",
+          "difficulty": "hard",
+          "objects": [
+            {
+              "type": "pc",
+              "name": "Server Terminal",
+              "takeable": false,
+              "hasFingerprint": true,
+              "fingerprintOwner": "it_manager",
+              "fingerprintDifficulty": "hard",
+              "observations": "A terminal managing server access and logs."
+            },
+            {
+              "type": "notes",
+              "name": "Admin Log",
+              "takeable": true,
+              "readable": true,
+              "text": "Admin entries note CEO-level biometric on file for top clearance.",
+              "observations": "System log entries."
+            },
+            {
+              "type": "notes",
+              "name": "Door to CEO",
+              "takeable": false,
+              "readable": true,
+              "text": "The door to the CEO's office is protected by a fingerprint scanner requiring the director's print.",
+              "observations": "A label describing the biometric lock on the door to the CEO office."
+            }
+          ]
+        },
+        "ceo_office": {
+          "type": "room_office",
+          "connections": {
+            "south": "server_room"
+          },
+          "locked": true,
+          "lockType": "biometric",
+          "requires": "ceo",
+          "biometricMatchThreshold": 0.8,
+          "difficulty": "hard",
+          "objects": [
+            {
+              "type": "mug",
+              "name": "CEO Coffee Mug",
+              "takeable": true,
+              "hasFingerprint": true,
+              "fingerprintOwner": "ceo",
+              "fingerprintDifficulty": "easy",
+              "observations": "A coffee mug with a clear fingerprint smudge."
+            },
+            {
+              "type": "suitcase",
+              "name": "CEO Suitcase",
+              "takeable": false,
+              "locked": true,
+              "lockType": "key",
+              "observations": "A black suitcase under the CEO's desk, locked but susceptible to lockpicking.",
+              "contents": [
+                {
+                  "type": "usb",
+                  "name": "Encrypted USB Drive",
+                  "takeable": true,
+                  "observations": "A USB drive labeled 'PROJECT-LOG'. Use your laptop to verify contents.",
+                  "important": true,
+                  "isEndGoal": true
+                }
+              ]
+            },
+            {
+              "type": "key",
+              "name": "Suitcase Key",
+              "takeable": true,
+              "key_id": "case_key",
+              "observations": "A small key marked 'Case' that may open the CEO's suitcase."
+            },
+            {
+              "type": "notes",
+              "name": "CEO Note",
+              "takeable": true,
+              "readable": true,
+              "text": "Private: Keep this drive secure. Only authorized staff should handle it.",
+              "observations": "A short private note."
+            }
+          ]
         }
+      }
     }
 }
