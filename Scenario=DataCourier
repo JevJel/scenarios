@@ -7,7 +7,7 @@
             "type": "lockpick",
             "name": "Lock Pick Kit",
             "takeable": true,
-            "observations": "A professional lock picking kit with various picks and tension wrenches"
+            "observations": "A lock picking kit very usable against doors"
         },
         {
             "type": "fingerprint_kit",
@@ -23,9 +23,9 @@
         },
         {
             "type": "notes",
-            "name": "Notepad",
+            "name": "PIN hint",
             "takeable": true,
-            "observations": "Store all clues and PINs you discover here"
+            "observations": "You should be able to find similar notes with hints to the PIN code on computers"
         }
     ],
     "rooms": {
@@ -40,16 +40,15 @@
                     "name": "Reception Log",
                     "takeable": true,
                     "readable": true,
-                    "text": "After the last network outage, the office PIN is now required. Some employees reported seeing a binary code on a sticky note near the server.",
-                    "observations": "Log explaining the office PIN requirement"
+                    "text": "After the last network outage, the PIN is now required to access the area. Some employees reported seeing a binary code on a sticky note near the server.",
+                    "observations": "I guess the worker who was here knew how to get around, right ?"
                 },
                 {
                     "type": "pc",
                     "name": "Reception PC",
                     "takeable": false,
-                    "hasFingerprint": true,
-                    "fingerprintOwner": "receptionist",
-                    "fingerprintDifficulty": "easy",
+                    "readable": true,
+                    "text": "00110011 00110110 00111001 00110101"
                     "observations": "A workstation that may contain binary hints or logs"
                 }
             ]
@@ -71,7 +70,7 @@
                     "takeable": false,
                     "locked": true,
                     "lockType": "key",
-                    "requires": "bag_key",
+                    "requires": "courier_key",
                     "observations": "A locked courier bag containing the USB drive",
                     "contents": [
                         {
