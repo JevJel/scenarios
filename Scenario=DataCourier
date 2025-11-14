@@ -1,5 +1,5 @@
 {
-    "scenario_brief": "A bag inside the office room that is locked behind the server contains a PIN code for a mysterious USB flash drive. You must retrieve the code to verify what's stored on the USB. So far, no one has been able to get past the server room.",
+    "scenario_brief": "A bag inside the office room that is locked behind the server contains a USB flash drive that contains important data. You must retrieve the USB to make sure that it won't get into hands of anyone with malicious intent. So far, no one has been able to get past the server room.",
     "endGoal": "Retrieve and verify the encrypted USB drive stored inside the locked bag.",
     "startRoom": "reception",
     "startItemsInInventory": [
@@ -96,7 +96,7 @@
                     "name": "Office Memo",
                     "takeable": true,
                     "readable": true,
-                    "text": "Keep the USB secure. Only authorized personnel should handle it.",
+                    "text": "Keep the USB secure. Only authorized personnel should handle it. Like our CEO.",
                     "observations": "A memo about USB's location"
                 }
             ]
@@ -107,26 +107,27 @@
                 "north": "server1",
                 "south": "office1"
             },
-            "locked": true,
-            "lockType": "key",
-            "requires": "server_key"
             "objects": [
                 {
                     "type": "pc",
                     "name": "Workstation",
                     "takeable": false,
-                    "hasFingerprint": true,
-                    "fingerprintOwner": "employee2",
-                    "fingerprintDifficulty": "medium",
-                    "observations": "It has fingerprints of the tech guy"
+                    "observations": "It seems the tech guy was at this computer but there is no fingerprint"
                 },
                 {
                     "type": "notes",
                     "name": "Final Hint",
                     "takeable": true,
                     "readable": true,
-                    "text": "Once you have the key and decoded the PIN, the courier bag in office1 can be opened to retrieve the USB drive.",
-                    "observations": "Directs you toward the end goal"
+                    "text": "Once you finish up with maintenance at the server you can leave the key in one of the offices. I'll get it the next day.",
+                    "observations": "Shows how incompetent the workeres here are."
+                },
+                {
+                    "type": "key",
+                    "name": "Server Key",
+                    "takeable": true,
+                    "key_id": "server_key",
+                    "observations": "This must be the key to the server."
                 }
             ]
         },
@@ -146,17 +147,9 @@
               "name": "Server Terminal",
               "takeable": false,
               "hasFingerprint": true,
-              "fingerprintOwner": "it_manager",
+              "fingerprintOwner": "ceo",
               "fingerprintDifficulty": "hard",
-              "observations": "A terminal managing server access and logs."
-            },
-            {
-              "type": "notes",
-              "name": "Admin Log",
-              "takeable": true,
-              "readable": true,
-              "text": "Admin entries note CEO-level biometric on file for top clearance.",
-              "observations": "System log entries."
+              "observations": "Fingerprint from the IT director"
             },
             {
               "type": "notes",
@@ -164,7 +157,7 @@
               "takeable": false,
               "readable": true,
               "text": "The door to the CEO's office is protected by a fingerprint scanner requiring the director's print.",
-              "observations": "A label describing the biometric lock on the door to the CEO office."
+              "observations": "The biometric lock on the door to the CEO office."
             }
           ]
         },
@@ -180,27 +173,18 @@
           "difficulty": "hard",
           "objects": [
             {
-              "type": "mug",
-              "name": "CEO Coffee Mug",
-              "takeable": true,
-              "hasFingerprint": true,
-              "fingerprintOwner": "ceo",
-              "fingerprintDifficulty": "easy",
-              "observations": "A coffee mug with a clear fingerprint smudge."
-            },
-            {
               "type": "suitcase",
               "name": "CEO Suitcase",
               "takeable": false,
-              "locked": true,
+              "locked": false,
               "lockType": "key",
-              "observations": "A black suitcase under the CEO's desk, locked but susceptible to lockpicking.",
+              "observations": "Suitcase that has USB inside it.",
               "contents": [
                 {
                   "type": "usb",
                   "name": "Encrypted USB Drive",
                   "takeable": true,
-                  "observations": "A USB drive labeled 'PROJECT-LOG'. Use your laptop to verify contents.",
+                  "observations": "A USB drive labeled '1999-12-31'. You finished your task, you can go back now and have a well-deserved rest",
                   "important": true,
                   "isEndGoal": true
                 }
@@ -216,7 +200,7 @@
             {
               "type": "notes",
               "name": "CEO Note",
-              "takeable": true,
+              "takeable": false,
               "readable": true,
               "text": "Private: Keep this drive secure. Only authorized staff should handle it.",
               "observations": "A short private note."
