@@ -181,7 +181,7 @@
               "observations": "Suitcase that has USB inside it.",
               "contents": [
                 {
-                  "type": "usb",
+                  "type": "notes",
                   "name": "Encrypted USB Drive",
                   "takeable": true,
                   "observations": "A USB drive labeled '1999-12-31'. You finished your task, you can go back now and have a well-deserved rest",
