@@ -162,7 +162,7 @@
           ]
         },
         "ceo_office": {
-          "type": "room_office",
+          "type": "room_ceo",
           "connections": {
             "south": "server_room"
           },
