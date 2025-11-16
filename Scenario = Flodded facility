@@ -7,19 +7,19 @@
             "type": "fingerprint_kit",
             "name": "Fingerprint Kit",
             "takeable": true,
-            "observations": "A small dusting kit for collecting latent fingerprints."
+            "observations": "A kit for discovering fingerprints."
         },
         {
             "type": "lockpick",
             "name": "Lock Pick Kit",
             "takeable": true,
-            "observations": "A professional lock picking kit with various picks and tension wrenches."
+            "observations": "A lock picking kit with various picks and tension wrenches."
         },
         {
             "type": "workstation",
             "name": "Cryptographic Station",
             "takeable": true,
-            "observations": "Use this to decode Base64 access codes and other encrypted data."
+            "observations": "Use this to decode access codes and other encrypted data."
         }
     ],
     "rooms": {
@@ -31,28 +31,18 @@
             "objects": [
                 {
                     "type": "notes",
-                    "name": "Storm Damage Report",
+                    "name": "Access to CEO's safe",
                     "takeable": true,
                     "readable": true,
-                    "text": "Severe electrical damage detected in lower server levels. Director access is required for reboot procedure.",
-                    "observations": "A printed report detailing the extent of the storm damage."
+                    "text": "Proffesor Mihawk's favoruite number is 13.",
+                    "observations": "A hint on how to open CEO's safe."
                 },
                 {
-                    "type": "pc",
-                    "name": "Lobby Computer",
-                    "takeable": false,
-                    "hasFingerprint": true,
-                    "fingerprintOwner": "assistant",
-                    "fingerprintDifficulty": "easy",
-                    "observations": "Displays a warning: 'Server connection lost — awaiting admin override.'"
-                },
-                {
-                    "type": "notes",
-                    "name": "Reception Memo",
+                    "type": "key",
+                    "name": "Office Key",
                     "takeable": true,
-                    "readable": true,
-                    "text": "All staff instructed to report damages and refrain from touching server room doors.",
-                    "observations": "A memo reminding staff of security protocols."
+                    "key_id": "office_key",
+                    "observations": "This key should open up most of the rooms.'"
                 }
             ]
         },
@@ -70,23 +60,15 @@
                     "hasFingerprint": true,
                     "fingerprintOwner": "it_manager",
                     "fingerprintDifficulty": "medium",
-                    "observations": "Shows a network diagnostic tool open."
+                    "observations": "IT manager should have accessed the server room."
                 },
                 {
                     "type": "notes",
                     "name": "Encrypted Email",
                     "takeable": true,
                     "readable": true,
-                    "text": "ENCODED: Nzk yNQ==",
+                    "text": "b64: Nzk yNQ==",
                     "observations": "Encrypted email containing backup access code."
-                },
-                {
-                    "type": "notes",
-                    "name": "Office Memo",
-                    "takeable": true,
-                    "readable": true,
-                    "text": "Check all network logs before proceeding to the server room.",
-                    "observations": "Internal office instructions."
                 }
             ]
         },
@@ -96,21 +78,19 @@
                 "north": "office3",
                 "south": "office1"
             },
+            "locked": true,
+            "lockType": "key",
+            "requires": "office_key",
+            "difficulty": "hard",
             "objects": [
                 {
-                    "type": "table",
-                    "name": "Conference Table",
-                    "takeable": false,
-                    "observations": "A large table surrounded by chairs. One coffee mug stands out."
-                },
-                {
                     "type": "mug",
-                    "name": "Director's Coffee Mug",
+                    "name": "Professor Mihawk's Mug",
                     "takeable": true,
                     "hasFingerprint": true,
-                    "fingerprintOwner": "director",
+                    "fingerprintOwner": "mihawk",
                     "fingerprintDifficulty": "easy",
-                    "observations": "Coffee mug labeled 'Director Evans' — perfect for collecting a fingerprint."
+                    "observations": "Coffee mug labeled 'Professor Mihawk' — and a small print saying Caesar Cipher under the name."
                 },
                 {
                     "type": "notes",
@@ -125,43 +105,49 @@
         "office3": {
             "type": "room_office",
             "connections": {
-                "north": "server_room",
+                "north": ["ceo_office", "server_room"],
                 "south": "office2"
             },
+            "locked": true,
+            "lockType": "pin",
+            "requires": "7925",
+            "dificulty": "hard",
             "objects": [
-                {
-                    "type": "pc",
-                    "name": "Backup Terminal",
-                    "takeable": false,
-                    "hasFingerprint": true,
-                    "fingerprintOwner": "it_manager",
-                    "fingerprintDifficulty": "medium",
-                    "observations": "Terminal showing server room door lock status."
-                },
                 {
                     "type": "notes",
                     "name": "Key Card Instructions",
                     "takeable": true,
                     "readable": true,
-                    "text": "Server room requires Director's fingerprint. Keep backup code ready.",
+                    "text": "Server room requires IT manger's fingerprint. CEO's office has some kind of thing that allows to turn on emergency power supply",
                     "observations": "Instructions for accessing the server room."
-                },
+                }
+            ]
+        },
+        "ceo_office": {
+        "type": "room_ceo",
+        "connections": {
+            "south": "office3"
+        },
+        "locked": true,
+        "lockType : "biometric",
+        "requires": "mihawk",
+        "biometricMatchThreshold": 0.8,
+        "objects": [
+            {
+                "type": "safe",
+                "name": "Professors' Safe",
+                "takeable": false,
+                "locked": true,
+                "lockType": "password",
+                "requires": "Cebsrffbe Zvunjx",
+                "contents": [
                 {
-                    "type": "bag",
-                    "name": "Locked Office Bag",
-                    "takeable": false,
-                    "locked": true,
-                    "lockType": "key",
-                    "requires": "office_bag_key",
-                    "observations": "A bag containing the USB drive with the access PIN code."
-                },
-                {
-                    "type": "key",
-                    "name": "Office Bag Key",
+                    "type": "notes",
+                    "name": "Backup Access Password",
                     "takeable": true,
-                    "key_id": "office_bag_key",
-                    "keyPins": [25, 50, 75, 100],
-                    "observations": "A small key for the locked office bag."
+                    "readable": true,
+                    "text": "Backup access password in server room is Hawk1974.",
+                    "observations": "Password to the computer in the server room."
                 }
             ]
         },
@@ -172,33 +158,21 @@
             },
             "locked": true,
             "lockType": "biometric",
-            "requires": "director",
+            "requires": "it_manager",
             "biometricMatchThreshold": 0.8,
             "objects": [
                 {
                     "type": "pc",
                     "name": "Server Terminal",
                     "takeable": false,
-                    "hasFingerprint": true,
-                    "fingerprintOwner": "director",
-                    "fingerprintDifficulty": "hard",
-                    "observations": "Main terminal for server power restoration. Displays: 'Awaiting admin biometric and access code.'"
-                },
-                {
-                    "type": "notes",
-                    "name": "Restoration Protocol",
-                    "takeable": true,
-                    "readable": true,
-                    "text": "Server Recovery Steps:\n1. Authenticate with Director's fingerprint.\n2. Enter decoded access code: 7925.\n3. Confirm power reroute sequence.",
-                    "observations": "Instructions for restoring network and power systems.",
+                    "lockType": "password",
+                    "requires": "Hawk1974",
+                    "showKeyboard": true,
+                    "maxAttempts": "3",
+                    "locked": true,
+                    "observations": "You have restored the power in the facility. You have special thanks from Professor Mihawk.'"
                     "important": true,
                     "isEndGoal": true
-                },
-                {
-                    "type": "usb",
-                    "name": "Mysterious USB Drive",
-                    "takeable": true,
-                    "observations": "Contains critical data. PIN code required to access. The PIN is inside the office bag in office3."
                 }
             ]
         }
