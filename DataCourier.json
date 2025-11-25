@@ -75,8 +75,9 @@
                     "name": "Server Access Memo",
                     "takeable": true,
                     "readable": true,
-                    "text": Server room requiers an authentication from one of our techs."
+                    "text": Server room requiers an authentication from one of our techs.",
                     "observations": "This did not narrow my search area"
+                }
             ]
         },
         "office2": {
